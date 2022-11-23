@@ -1,9 +1,14 @@
-const { getAllPlanets } = require('../../models/planets.model');
+const { getAllPlanets, savePlanet } = require('../../models/planets.model')
 
-
-function httpGetAllPlanets(req, res) {
-    return res.status(200).json(getAllPlanets());
+async function httpGetAllPlanets(req, res) {
+  const response = await getAllPlanets()
+  return res.status(200).json(response)
+}
+async function httpPostPlanet(req, res) {
+  const newPlanet = await savePlanet(req.body.keplerName)
+  return res.status(200).json(newPlanet)
 }
 module.exports = {
-    httpGetAllPlanets
+  httpGetAllPlanets,
+  httpPostPlanet,
 }
